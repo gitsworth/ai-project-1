@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meeting to Action</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Meeting to Action</h1>
+    <p>Paste a transcript. Get the summary, decisions and tasks, and find out which tasks still need an owner or a deadline.</p>
+  </header>
+
+  <main>
+    <form id="form">
+      <label>Transcript
+        <textarea id="transcript" rows="14" required maxlength="15000" placeholder="Priya: Let's start with the launch..."></textarea>
+      </label>
+      <button id="go" type="submit">Analyse meeting</button>
+      <button id="sample" type="button" class="ghost">Load a sample transcript</button>
+      <p id="error" role="alert"></p>
+    </form>
+
+    <section id="results">
+      <div id="empty">Paste a transcript and select Analyse meeting. Results appear here.</div>
+      <div id="loading" hidden><span class="spinner"></span> Reading the meeting...</div>
+
+      <div id="output" hidden>
+        <h2 id="title"></h2>
+        <p id="summary"></p>
+
+        <h3>Decisions</h3>
+        <ul id="decisions"></ul>
+
+        <h3>Action items</h3>
+        <div class="scroll">
+          <table>
+            <thead><tr><th>Task</th><th>Owner</th><th>Deadline</th><th>Status</th></tr></thead>
+            <tbody id="taskBody"></tbody>
+          </table>
+        </div>
+        <p id="status"></p>
+
+        <form id="clarify" hidden>
+          <h3>Needs clarification</h3>
+          <div id="questions"></div>
+          <button type="submit">Apply answers</button>
+        </form>
+
+        <h3>Follow-ups</h3>
+        <ul id="followups"></ul>
+
+        <div class="actions">
+          <button id="dlTxt" type="button">Download report</button>
+          <button id="dlCsv" type="button">Download tasks (CSV)</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

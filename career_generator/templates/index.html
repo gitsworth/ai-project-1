@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Career Profile Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Career Profile Generator</h1>
+    <p>Tell us where you are and where you want to go. Get a summary, skill gaps, a learning plan and interview prep that all agree with each other.</p>
+  </header>
+
+  <main>
+    <aside>
+      <form id="form">
+        <label>Name <input name="name" required maxlength="500" placeholder="Asha Verma"></label>
+        <label>Education
+          <select name="education">
+            <option>High school</option><option selected>Undergraduate</option>
+            <option>Postgraduate</option><option>Diploma</option>
+          </select>
+        </label>
+        <label>Skills <textarea name="skills" rows="2" required maxlength="500" placeholder="Python, SQL, basic HTML"></textarea></label>
+        <label>Academic interests <textarea name="interests" rows="2" required maxlength="500" placeholder="Machine learning, databases"></textarea></label>
+        <label>Career goal <input name="goal" required maxlength="500" placeholder="Data analyst at a fintech company"></label>
+        <button id="go" type="submit">Build my profile</button>
+        <p id="error" role="alert"></p>
+      </form>
+      <div id="past">
+        <h2>Past profiles</h2>
+        <ul id="historyList"></ul>
+      </div>
+    </aside>
+
+    <section id="results">
+      <div id="empty">Fill in the form and select Build my profile. You can review and edit it before the documents are written.</div>
+      <div id="loading" hidden><span class="spinner"></span> <span id="loadMsg"></span></div>
+
+      <div id="review" hidden>
+        <h2>Check your profile</h2>
+        <p class="hint">Fix anything wrong. Every document will be written from exactly this. Separate lists with commas.</p>
+        <label>Target role <input id="r_role"></label>
+        <label>Experience level
+          <select id="r_level"><option>beginner</option><option>intermediate</option><option>advanced</option></select>
+        </label>
+        <label>Your skills <textarea id="r_skills" rows="2"></textarea></label>
+        <label>Interests <textarea id="r_interests" rows="2"></textarea></label>
+        <label>Strengths <textarea id="r_strengths" rows="2"></textarea></label>
+        <button id="generate" type="button">Looks right, write my documents</button>
+      </div>
+
+      <div id="output" hidden>
+        <div id="tabs" role="tablist"></div>
+        <article id="content"></article>
+        <div class="actions">
+          <button id="regen" type="button">Regenerate this tab</button>
+          <button id="copy" type="button">Copy</button>
+          <button id="txt" type="button">Download text</button>
+          <button id="pdf" type="button">Download PDF</button>
+        </div>
+        <p class="notice">AI can be wrong. Check that courses exist and verify links yourself before relying on them.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="printable"></div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
